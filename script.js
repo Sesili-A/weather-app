@@ -16,11 +16,19 @@ const userLocation = document.getElementById("userLocation"),
     Forecast = document.querySelector(".Forecast");
 
 
-WEATHER_API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?appi`;
-WEATHER_DATA_ENDPOINT=''
+WEATHER_API_ENDPOINT = `https://api.openweathermap.org/data/2.5/weather?appid=81672c74d2cc0d65f24c2e2d1a8b7255&q= `;
+WEATHER_DATA_ENDPOINT=`https://api.openweathermap.org/data/2.5/onecall81672c74d2cc0d65f24c2e2d1a8b7255&exclude=minutely&units=metric&`;
 
 function findUserLocation(){
-    alert(1);
+    fetch(WEATHER_API_ENDPOINT+userLocation.value)
+    .then((response)=>response.json())
+    .then((data) => {
+        if(data.cod!= '' && data.cod != 200){
+            alert(data.message);
+            return;
+        }
+        console.log(data.coord.lon,data.coord.lat);
+    });
 }
 
 
